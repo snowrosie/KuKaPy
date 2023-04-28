@@ -423,7 +423,7 @@ def compute_range_profiles(n_blocks,n_pol,elevation,scan_index,\
         sweep_bandwidth = scatvars["chirp_bandwidth_hz"]/1e06
         sub_band_start_freq = configvars["sub_center_frequency"]-configvars["sub_bandwidth"]/2.
         weights_start_index = int(scatvars["n_gates"]*(sub_band_start_freq-sweep_start_freq)/(sweep_bandwidth))
-        weights_end_index = int(weights_start_index+len(weights_sub))-1
+        weights_end_index = int(weights_start_index+len(weights_sub))
         weights = np.zeros(scatvars["n_gates"])
         print(len(weights), len(weights_sub), weights_start_index, weights_end_index)
         weights[weights_start_index:weights_end_index] = weights_sub

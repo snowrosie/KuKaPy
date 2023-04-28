@@ -1,6 +1,6 @@
 extract_config = {
     "instrument_name" :"Ku-Scat", 
-    "i_sub_band" : 0, #set to 1 to process sub-band
+    "i_sub_band" : 1, #set to 1 to process sub-band
     "sub_bandwidth":320, #bandwidth of sub-band in MHz
     "sub_center_frequency":13575, #center frequency of sub-band in MHz
     "i_calibrate":0, #0 to read existing cal file;1: find tx/rx distortion matrix using isotropic medium
@@ -13,7 +13,7 @@ extract_config = {
     "i_proc_ind": 0,    #set to 1 to only process independent samples due to motion in stare data
     "n_blocks_ind_per_group":40,      #number of ind. samps per group when i_proc_ind:1
     "i_az_override":0,     # set to 1 to process a limited azimuth segment
-    "azmin_proc":40, #minimum azimuth angle to process when i_az_override:1
+    "azmin_proc":-5, #minimum azimuth angle to process when i_az_override:1
     "azmax_proc":45,            #maximum azimuth angle to process when i_az_override:1
     "i_el_override":0,         #set to 1 to process a limited range of elevation angles 
     "elmin_proc": 0,        #minimum elevation angle to process when i_el_override:1
@@ -27,7 +27,7 @@ extract_config = {
     "proc_thresh_left_dB" :-20.0,    # i#nclude all data from this threshold left of peak to peak 
     "proc_thresh_right_dB" :-40.0,     #include all data from right of peak to this threshold right of peak 
     "group_averaging_time":10.0,         # s:averaging time in stare mode
-    "raw_data_path":"/Users/rosie/Documents/Churchill/kuka_data/", #data file path for location of raw data
-    "processed_data_path": "/Users/rosie/Documents/Churchill/kuka_data/processed/",     #data file path for location of processed data   
+    "raw_data_path":"/Volumes/bigLacie/all_stare/", #data file path for location of raw data
+    "processed_data_path": "/Volumes/bigLacie/processed_stare_cs2_alt_new_nrcs/",     #data file path for location of processed data   
     "show_all_plot" : 0, 
 }

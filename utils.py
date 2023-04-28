@@ -501,7 +501,7 @@ def process_polarimetric_data(scatvars,configvars,calvars, _range,spec,\
                  'vv': avespec_vv, 
                  'hv': avespec_hv, 
                  'vh': avespec_vh}
-    import pandas as pd
+    #import pandas as pd
     ## write_df = pd.DataFrame(to_write, columns= ['range', 'hh', 'vv', 'hv', 'vh'])
     ## write_df.to_csv (processed_data_path+name4sav+'_range_hh_vv_hv_vh_decon'+str(decon)+'.txt', index = False, header=False)
     # to_write = str((np.reshape(_range, (_range.shape[0],1)),
@@ -627,7 +627,7 @@ def process_polarimetric_data(scatvars,configvars,calvars, _range,spec,\
     if gate0 < 0:
         gate0 = 0
         
-    # print('gate0 NEW',gate0)
+    #print('gate0 NEW',gate0)
     
     #old
     # iloop_left = 0
@@ -674,7 +674,7 @@ def process_polarimetric_data(scatvars,configvars,calvars, _range,spec,\
             iloop_right = 0
             index_lo_right = []
             count = 0
-            print('here 3i')
+            #print('here 3i')
             while count == 0:    
                 for each in range(gate_peak, int(ngates)):
                     if sumspec[each]/max(sumspec[gate_peak:int(ngates)]) < proc_thresh_right:
@@ -692,7 +692,8 @@ def process_polarimetric_data(scatvars,configvars,calvars, _range,spec,\
             
                 iloop_right=iloop_right+1 
         else: #stare mode
-            index_lo_right = [len(_range) - gate_peak] #if stare mode set gate1 to last bin
+            #index_lo_right = [len(_range) - gate_peak] #if stare mode set gate1 to last bin
+            index_lo_right = [gate_peak*-1] #rcw December 2022 set it so gate1 = 0 in this case
     #print(gate1,gate0)        
     # print('gate1 NEW', gate1)
     
@@ -734,8 +735,8 @@ def process_polarimetric_data(scatvars,configvars,calvars, _range,spec,\
         
     n_bins = gate1-gate0+1
     
-    # print('gate0', gate0)
-    # print('gate1', gate1)
+    print('gate0', gate0)
+    print('gate1', gate1)
 
 
     if n_bins < smoothfac:      # le changed from lt on 4/13/2020
@@ -749,6 +750,8 @@ def process_polarimetric_data(scatvars,configvars,calvars, _range,spec,\
     range_centroid_vv = sum(_range[gate0:gate1] * avespec_vv[gate0:gate1])/sum(avespec_vv[gate0:gate1])    
     range_centroid_hh = sum(_range[gate0:gate1] * avespec_hh[gate0:gate1])/sum(avespec_hh[gate0:gate1]) 
     range_centroid_signal[igroup] = (range_centroid_vv+range_centroid_hh)/2.
+    
+    #print('range_peak_signal, range_centroid_signal', range_peak_signal, range_centroid_signal)
         
 
     c_matrix_vs_bin = np.zeros((4,4,n_bins), dtype=np.complex_) #covariance matrix at each range within beam footprint
@@ -766,6 +769,8 @@ def process_polarimetric_data(scatvars,configvars,calvars, _range,spec,\
     total_power[igroup,1] = total_power_hv
     total_power[igroup,2] = total_power_vh
     total_power[igroup,3] = total_power_hh
+    
+    print('total_power[igroup]', total_power[igroup])
 
     peak_power_vv = max(avespec_vv[gate0:gate1])
     peak_power_hv = max(avespec_hv[gate0:gate1])
@@ -776,6 +781,11 @@ def process_polarimetric_data(scatvars,configvars,calvars, _range,spec,\
     peak_power[igroup,1] = peak_power_hv
     peak_power[igroup,2] = peak_power_vh
     peak_power[igroup,3] = peak_power_hh
+
+    if (gate0 == 0) or (gate1 == 1):
+        print('igroup:', igroup, 'gate0 is 0 and gate 1 is 1')
+        total_power[igroup,:] = np.nan
+        peak_power[igroup,:] = np.nan
     
     
     # ## PLOT    

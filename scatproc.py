@@ -73,7 +73,7 @@ def main():
         #rcw adding code to save out the raw arrays and deconvolve if wanted
         import numpy as np
         
-        # for decon in [0, 1]: #rcw switch on/off use of deconvolved data
+        #for decon in [0]: #rcw switch off use of deconvolved data for sub-banding because we don't have the deconvolution waveforms
         for decon in [0,1]: #rcw switch on/off use of deconvolved data
 
             # if decon == 0: 

@@ -34,7 +34,7 @@ def runDeconvolution(raw, kukaBand):  # raw array and frequency band (Ka or Ku)
 
         # Remove coherent noise from the data
         thisTestDataCoh = removeCoherentNoiseHighpass(thisTestData, kukaBand)
-        np.savetxt('/Users/rosie/Documents/mosaic/mosaic_data/kukapy_output/'+'thisTestDataCoh_'+str(j)+".csv", thisTestDataCoh, delimiter=" ")
+        #np.savetxt('/Users/rosie/Documents/mosaic/mosaic_data/kukapy_output/'+'thisTestDataCoh_'+str(j)+".csv", thisTestDataCoh, delimiter=" ")
 
         # load decon waveforms for current band (KA or KU)
         thisBandDeconWaveforms = loadDeconWaveforms(kukaBand)
